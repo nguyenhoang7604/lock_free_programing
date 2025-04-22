@@ -8,6 +8,11 @@ struct Node {
     Node(int val) : value(val), next(nullptr) {}
 };
 
+
+/*!
+ * Simple lock free queue without guard (ABA problems, no delay deletion)
+ */
+
 class LockFreeQueue {
 public:
     LockFreeQueue() {
