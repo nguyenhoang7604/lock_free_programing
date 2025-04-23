@@ -15,10 +15,10 @@ void mpmc_test() {
     std::vector<std::thread> producers, consumers;
     std::atomic<int> total_dequeued{0};
 
-    for (int i = 1; i <= producer_count; ++i) {
+    for (int i = 0; i < producer_count; ++i) {
         producers.emplace_back([&, i] {
             thread_local int count = 0;
-            for (int j = 1; j <= items_per_producer; ++j) {
+            for (int j = 0; j < items_per_producer; ++j) {
                 q.enqueue(i * items_per_producer + j);
                 ++count;
             }
@@ -40,7 +40,7 @@ void mpmc_test() {
     for (auto& p : producers) p.join();
     for (auto& c : consumers) c.join();
 
-    std::cout << "Total dequeued: " << total_dequeued.load() << "\n";
+    std::cout << "Total dequeued: " << total_dequeued.load(std::memory_order_relaxed) << "\n";
 }
 
 int main() {

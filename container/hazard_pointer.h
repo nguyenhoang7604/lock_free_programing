@@ -89,7 +89,9 @@ private:
 
     void addToRetiredNodes(RetiredNode* node) {
         node->next_ = retiredNodes_.load();
-        while(!retiredNodes_.compare_exchange_strong(node->next_, node));
+        while(!retiredNodes_.compare_exchange_strong(node->next_, node,
+                                                std::memory_order_release,
+                                                std::memory_order_relaxed));
     }
 
 public:
