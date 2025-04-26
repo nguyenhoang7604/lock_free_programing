@@ -85,8 +85,6 @@ inline void LockFreeQueue<T, Node>::enqueue(T const& value) {
             oldTail = tail_.load(std::memory_order_acquire);
         } while (oldTail != tmpNode);
 
-
-        Node* nextTail = oldTail->next_.load();
         T* expectedValue = nullptr;
         if (oldTail->data_.compare_exchange_strong(expectedValue, data,
                                                 std::memory_order_release,

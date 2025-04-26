@@ -1,0 +1,34 @@
+# Use Ubuntu 22.04 as the base image
+FROM ubuntu:22.04
+
+# Set non-interactive frontend for apt
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install system packages including clang and clang++
+RUN apt update && \
+	apt install -y \
+	cmake \
+	build-essential \
+	clang \
+	libc++-dev \
+	libc++abi-dev \
+	libtsan0 \
+	libboost-all-dev \
+	git \
+	lldb \
+	lld \
+	wget \
+	curl \
+	vim \
+	nano \
+	&& apt clean
+
+# Set working directory
+WORKDIR /build
+
+# Set clang++ as default C++ compiler (optional)
+RUN update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 100 && \
+    update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100
+
+# Default command
+CMD ["/bin/bash"]

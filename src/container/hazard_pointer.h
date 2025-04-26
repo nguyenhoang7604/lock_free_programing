@@ -35,7 +35,7 @@ public:
     // void operator delete(void*) = delete;
 
     HazardPointerOwner() : hazardPointer_(nullptr) {
-        for (auto i = 0; i < MaxHazardPointers; ++i) {
+        for (size_t i = 0; i < MaxHazardPointers; ++i) {
             std::thread::id oldId;
             if (HazardPointers<T>[i].id_.compare_exchange_strong(oldId, std::this_thread::get_id())) {
                 hazardPointer_ = &HazardPointers<T>[i];
@@ -68,7 +68,7 @@ std::atomic<Node<T>*>& getHazardPointer()
 
 template<typename T>
 bool isUsing(Node<T>* node) {
-    for (auto i = 0; i < MaxHazardPointers; ++i) {
+    for (size_t i = 0; i < MaxHazardPointers; ++i) {
         if (HazardPointers<T>[i].pointer_.load() == node) return true;
     }
     return false;
