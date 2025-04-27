@@ -43,7 +43,6 @@ function configure_local() {
 	cmake -S "$LOCAL_SOURCE_PATH" \
 		-B "$PREFIX_SOURCE_PATH" \
 		-DCMAKE_BUILD_TYPE=Debug \
-		-DENABLE_TSAN=${ENABLE_TSAN} \
 		$CMAKE_OPTIONS >> "$BUILD_OUTPUT" 2>&1
 	status=$?
 	set -e

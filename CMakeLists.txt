@@ -16,6 +16,7 @@ include(Project)
 init_project()
 
 find_package(Boost 1.74.0 REQUIRED)
+find_package(GTest REQUIRED)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wextra")
 
@@ -32,10 +33,10 @@ set(PROJECT_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(PROJECT_OPEN_SOURCE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_subdirectory(src)
-# Todo Unit test
-# add_subdirectory(test)
+add_subdirectory(test)
 
 message(STATUS "====================================")
 message(STATUS "C++ standard:                 " ${CMAKE_CXX_STANDARD})
+message(STATUS "Unit Testing:                 " ${UNIT_TESTING})
 message(STATUS "ThreadSanitizer:              " ${TSAN_STATUS})
 message(STATUS "====================================")

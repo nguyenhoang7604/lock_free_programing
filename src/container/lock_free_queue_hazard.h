@@ -4,7 +4,6 @@
 
 template<typename T>
 struct Node {
-    static_assert(std::atomic<T>::is_always_lock_free);
     static_assert(std::atomic<T*>::is_always_lock_free);
 
     std::atomic<T*> data_;
