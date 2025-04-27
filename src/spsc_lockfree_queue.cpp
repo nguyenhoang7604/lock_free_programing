@@ -11,6 +11,9 @@
 constexpr size_t QueueCapacity = 2048;
 constexpr int TotalMessages = 1000;
 
+std::atomic<int> totalPushed{0};
+std::atomic<int> totalPopped{0};
+
 template <typename T, size_t>
 class SPSCQueue;
 
@@ -21,8 +24,8 @@ void producer() {
         while (!queue.push(i)) {
             std::this_thread::yield(); // Queue full, re-schedule and retry
         }
-        std::cout << "Produced: " << i << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(100)); // Simulate work
+        totalPushed.fetch_add(1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }
 
@@ -32,8 +35,8 @@ void consumer() {
         while (!queue.pop(value)) {
             std::this_thread::yield(); // Queue empty, re-schedule and retry
         }
-        std::cout << "Consumed: " << value << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(50)); // Simulate work
+        totalPopped.fetch_add(1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(5));
     }
 }
 
