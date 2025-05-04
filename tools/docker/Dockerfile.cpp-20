@@ -14,13 +14,12 @@ RUN apt update && \
 	libc++abi-dev \
 	libtsan0 \
 	libboost-all-dev \
-	git \
+	libgtest-dev \
+	libgmock-dev \
 	lldb \
 	lld \
 	wget \
-	curl \
 	vim \
-	nano \
 	&& apt clean
 
 # Set working directory

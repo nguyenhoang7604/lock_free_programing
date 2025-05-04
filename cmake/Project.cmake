@@ -12,6 +12,8 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 endmacro(init_project)
 
+option(UNIT_TESTING "Enable Unit Testing" ON)
+option(ENABLE_TSAN "Enable Thread Sanitizer" ON)
 
 macro(set_library_type lib)
 	set(build_shared_var ${lib}_BUILD_SHARED)

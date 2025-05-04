@@ -43,7 +43,7 @@ public:
             }
         }
         if (nullptr == hazardPointer_)
-            throw std::runtime_error("No available hazard pointer");
+            throw std::runtime_error("No available hazard pointer\n");
     }
 
     ~HazardPointerOwner() {
